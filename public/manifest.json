@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
   "version": "0.0.2",
-  "short_name": "Effort Counter",
-  "name": "Journey Effort Measurement Tool",
-  "description": "Journey Effort Measurement Tool",
+  "short_name": "Graph XRay",
+  "name": "Graph XRay",
+  "description": "Graph XRay",
   "browser_action": {
-    "default_title": "Effort Counter",
+    "default_title": "Graph XRay",
     "default_popup": "popup.html"
   },
   "background": {

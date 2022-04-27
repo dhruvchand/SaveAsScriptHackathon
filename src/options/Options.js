@@ -102,7 +102,10 @@ class Options extends React.Component {
               <tr key={k}>
                 <td>tabName :{k.tabName}</td>
                 <td>tabUrl :{k.tabUrl}</td>
-                <td> {k.urls.map((url) => url + ";\n \n")}} </td>
+                <td> {k.urls.map((url) => url + ";\n \n")} </td>
+                <td>
+                  {k.requestBody.map((requestBody) => requestBody + ";\n \n")}
+                </td>
               </tr>
             ))}
           </table>

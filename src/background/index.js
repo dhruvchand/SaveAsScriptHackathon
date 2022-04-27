@@ -20,6 +20,7 @@ export async function init() {
     await saveObjectInLocalStorage({
       currentMetrics: {
         urls: [],
+        requestBody: [],
       },
       contextSwitches: 0,
       stack: [],
@@ -27,26 +28,52 @@ export async function init() {
     });
   });
 
-  chrome.webRequest.onCompleted.addListener(
+  // chrome.webRequest.onCompleted.addListener(
+  //   async function (details) {
+  //     console.log(details.url);
+  //     console.log(!details.url.includes("ms.portal.azure."));
+  //     if (!details.url.includes("ms.portal.azure.")) {
+  //       const request = details.method + " " + details.url;
+  //       console.log(request);
+  //       const currentMetrics = await getCurrentMetrics();
+  //       currentMetrics.urls.unshift(request);
+  //       commitIfActive({
+  //         currentMetrics: {
+  //           ...currentMetrics,
+  //         },
+  //       });
+  //     }
+  //   },
+  //   {
+  //     urls: ["https://graph.microsoft.com/*"],
+  //     types: ["xmlhttprequest"],
+  //   }
+  // );
+
+  chrome.webRequest.onBeforeRequest.addListener(
     async function (details) {
-      console.log(details.url);
-      console.log(!details.url.includes("ms.portal.azure."));
-      if (!details.url.includes("ms.portal.azure.")) {
-        const request = details.method + " " + details.url;
-        console.log(request);
-        const currentMetrics = await getCurrentMetrics();
-        currentMetrics.urls.unshift(request);
-        commitIfActive({
-          currentMetrics: {
-            ...currentMetrics,
-          },
-        });
-      }
+      console.log("onBeforeRequest", details);
+      const requestBody = decodeURIComponent(
+        String.fromCharCode.apply(
+          null,
+          new Uint8Array(details.requestBody.raw[0].bytes)
+        )
+      );
+      console.log("requestBody", requestBody);
+
+      const request = details.method + " " + details.url;
+      console.log(request);
+      const currentMetrics = await getCurrentMetrics();
+      currentMetrics.urls.unshift(request);
+      currentMetrics.requestBody.unshift(requestBody);
+      commitIfActive({
+        currentMetrics: {
+          ...currentMetrics,
+        },
+      });
     },
-    {
-      urls: ["<all_urls>"],
-      types: ["xmlhttprequest"],
-    }
+    { urls: ["https://graph.microsoft.com/*"] },
+    ["requestBody"]
   );
 
   console.log("Init complete.");
@@ -73,6 +100,7 @@ export async function init() {
         await saveObjectInLocalStorage({
           currentMetrics: {
             urls: [],
+            requestBody: [],
             tabName: tab.title,
             tabUrl: tab.url,
           },
@@ -106,6 +134,7 @@ export async function init() {
         await saveObjectInLocalStorage({
           currentMetrics: {
             urls: [],
+            requestBody: [],
             tabName: tab.title,
             tabUrl: tab.url,
           },
@@ -149,6 +178,7 @@ export async function init() {
       await saveObjectInLocalStorage({
         currentMetrics: {
           urls: [],
+          requestBody: [],
         },
         stack: [],
         contextSwitches: 0,
