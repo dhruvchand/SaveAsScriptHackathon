@@ -12,14 +12,29 @@ import {
 import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
-import OverviewDoc from "./doc/overview.md";
+
+import ApplicationOwnersDoc from "./doc/application-owners.md";
+import ApplicationsDoc from "./doc/applications.md";
+import GroupMembersDoc from "./doc/group-members.md";
+import GroupMembershipsDoc from "./doc/group-memberships.md";
+import GroupOwnersDoc from "./doc/group-owners.md";
+import GroupsDoc from "./doc/groups.md";
+import ServicePrincipalOwnersDoc from "./doc/service-principal-owners.md";
+import ServicePrincipalsDoc from "./doc/service-principals.md";
+import UserDetailsDoc from "./doc/user-details.md";
 import UsersDoc from "./doc/users.md";
-import ProfileDoc from "./doc/profile.md";
 
 const docPaths = {
-  "overview.md": OverviewDoc,
+  "application-owners.md": ApplicationOwnersDoc,
+  "applications.md": ApplicationsDoc,
+  "group-members.md": GroupMembersDoc,
+  "group-memberships.md": GroupMembershipsDoc,
+  "group-owners.md": GroupOwnersDoc,
+  "groups.md": GroupsDoc,
+  "service-principal-owners.md": ServicePrincipalOwnersDoc,
+  "service-principals.md": ServicePrincipalsDoc,
+  "user-details.md": UserDetailsDoc,
   "users.md": UsersDoc,
-  "profile.md": ProfileDoc,
 };
 
 class App extends React.Component {

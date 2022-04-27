@@ -23,8 +23,8 @@ function matchTemplateCandidate(url, template) {
 
     // check if template segment is a param placeholder
     if (
-      templateSegments[i].startsWith("{") &&
-      templateSegments[i].endsWith("}")
+      templateSegments[i].startsWith("[") &&
+      templateSegments[i].endsWith("]")
     ) {
       const param = templateSegments[i].substring(
         1,
