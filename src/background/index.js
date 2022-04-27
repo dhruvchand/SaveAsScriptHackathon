@@ -9,6 +9,7 @@ import {
 
 import { getActiveTab, getStartTab } from "../common/tabs.js";
 
+import { getPowershellCmd } from "../common/client.js";
 init();
 
 // This needs to be an export due to typescript implementation limitation of needing '--isolatedModules' tsconfig
@@ -53,18 +54,24 @@ export async function init() {
   chrome.webRequest.onBeforeRequest.addListener(
     async function (details) {
       console.log("onBeforeRequest", details);
-      const requestBody = decodeURIComponent(
-        String.fromCharCode.apply(
-          null,
-          new Uint8Array(details.requestBody.raw[0].bytes)
-        )
-      );
+      let requestBody;
+      if (details.requestBody) {
+        requestBody = decodeURIComponent(
+          String.fromCharCode.apply(
+            null,
+            new Uint8Array(details.requestBody.raw[0].bytes)
+          )
+        );
+      }
       console.log("requestBody", requestBody);
 
+      const powershellCmd = await getPowershellCmd(details.method, details.url);
+
+      console.log(powershellCmd);
       const request = details.method + " " + details.url;
-      console.log(request);
+
       const currentMetrics = await getCurrentMetrics();
-      currentMetrics.urls.unshift(request);
+      currentMetrics.urls.unshift({ url: request, ps: powershellCmd });
       currentMetrics.requestBody.unshift(requestBody);
       commitIfActive({
         currentMetrics: {

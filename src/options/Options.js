@@ -98,16 +98,16 @@ class Options extends React.Component {
           <br />
           <br />
           <table>
-            {this.state.stack.map((k) => (
-              <tr key={k}>
-                <td>tabName :{k.tabName}</td>
-                <td>tabUrl :{k.tabUrl}</td>
-                <td> {k.urls.map((url) => url + ";\n \n")} </td>
-                <td>
-                  {k.requestBody.map((requestBody) => requestBody + ";\n \n")}
-                </td>
-              </tr>
-            ))}
+            {this.state.stack.map((k) =>
+              k.urls.map((url) => (
+                <tr key={url}>
+                  <td> {url.url} </td>
+                  <td> {url.ps} </td>
+                  <td>tabName :{k.tabName}</td>
+                  <td>tabUrl :{k.tabUrl}</td>
+                </tr>
+              ))
+            )}
           </table>
         </header>
       </div>
