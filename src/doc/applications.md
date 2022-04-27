@@ -1,0 +1,1 @@
+[New-MgApplication](/powershell/module/microsoft.graph.applications/new-mgapplication?view=graph-powershell-1.0)
