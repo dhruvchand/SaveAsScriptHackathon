@@ -7,43 +7,13 @@ import {
   commitIfActive,
 } from "../common/storage.js";
 
+import { getActiveTab, getStartTab } from "../common/tabs.js";
+
 init();
 
 // This needs to be an export due to typescript implementation limitation of needing '--isolatedModules' tsconfig
 export async function init() {
   let startTime;
-
-  const getActiveTab = async function () {
-    return new Promise((resolve, reject) => {
-      try {
-        chrome.tabs.query(
-          { active: true, currentWindow: true },
-          function (value) {
-            resolve(value);
-          }
-        );
-      } catch (ex) {
-        reject(ex);
-      }
-    });
-  };
-
-  const getStartTab = async function () {
-    return new Promise((resolve, reject) => {
-      try {
-        chrome.tabs.query(
-          {
-            active: true,
-          },
-          function (value) {
-            resolve(value);
-          }
-        );
-      } catch (ex) {
-        reject(ex);
-      }
-    });
-  };
 
   // initialize storage
   chrome.runtime.onInstalled.addListener(async function (details) {
