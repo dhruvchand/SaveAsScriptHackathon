@@ -1,8 +1,42 @@
-{
-    [
-        {
-            PortalUri: "https://ms.portal.azure.com/#blade/Microsoft_AAD_IAM/UsersManagementMenuBlade/MsGraphUsers"
-            Markdown: "users.md"
-        }
-    ]
-}
+(       
+    {
+        "PortalUri": "https://ms.portal.azure.com/#blade/Microsoft_AAD_IAM/UsersManagementMenuBlade/MsGraphUsers",
+        "Markdown": "users.md"
+    }
+    {
+        "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/UserDetailsMenuBlade/Profile/userId/[UserId]",
+        "Markdown": "user-details.md"
+    }
+    {
+        "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups",
+        "Markdown": "groups.md"
+    }
+    {
+        "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/Owners/groupId/[GroupId]",
+        "Markdown": "group-owners.md"
+    }
+    {
+        "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/Members/groupId/[GroupId]",
+        "Markdown": "group-members.md"
+    }
+    {
+        "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/GroupMemberships/groupId/[GroupId]",
+        "Markdown": "group-memberships.md"
+    }
+    {
+        "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps",
+        "Markdown": "applications.md"
+    }
+    {
+        "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Owners/appId/[AppId]/isMSAApp/",
+        "Markdown": "application.owners.md"
+    }
+    {
+        "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/AppAppsPreview/menuId/",
+        "Markdown": "service-principals.md"
+    }
+    {
+        "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/Owners/objectId/14f338a2-3327-466b-9cdf-c6870d5f20a7/appId/[ObjectId]",
+        "Markdown": "service-principal-owners.md"
+    }
+)

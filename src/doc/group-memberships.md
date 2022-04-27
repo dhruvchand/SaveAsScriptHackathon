@@ -1,0 +1,2 @@
+[Get-MgGroupMemberOf](/powershell/module/microsoft.graph.groups/get-mggroupmemberof?view=graph-powershell-1.0)
+[New-MgGroupMemberOfByRef](/powershell/module/microsoft.graph.groups/new-mggroupmemberofbyref?view=graph-powershell-1.0)
