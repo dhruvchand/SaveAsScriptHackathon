@@ -1,2 +1,2 @@
-[Get-MgGroupOwner](/powershell/module/microsoft.graph.groups/get-mggroupowner?view=graph-powershell-1.0)
-[New-MgGroupOwnerByRef](/powershell/module/microsoft.graph.groups/new-mggroupownerbyref?view=graph-powershell-1.0)
+* [Get-MgGroupOwner](/powershell/module/microsoft.graph.groups/get-mggroupowner?view=graph-powershell-1.0)
+* [New-MgGroupOwnerByRef](/powershell/module/microsoft.graph.groups/new-mggroupownerbyref?view=graph-powershell-1.0)

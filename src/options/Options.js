@@ -102,9 +102,11 @@ class Options extends React.Component {
               k.urls.map((url) => (
                 <tr key={url}>
                   <td> {url.url} </td>
-                  <td> {url.ps} </td>
-                  <td>tabName :{k.tabName}</td>
-                  <td>tabUrl :{k.tabUrl}</td>
+                  <td>
+                    <pre>
+                      <code>{url.ps}</code>
+                    </pre>
+                  </td>
                 </tr>
               ))
             )}

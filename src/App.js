@@ -21,6 +21,8 @@ class App extends React.Component {
       isActive: false,
       stack: [],
       doc: "",
+      recentCode: "",
+      recentGraphUri: "",
     };
   }
 
@@ -40,6 +42,19 @@ class App extends React.Component {
     let isActive = await getIsActive();
     let stack = await getStack();
 
+    //Get the most recent PowerShell command
+    let recentGraphUri = "";
+    let recentCode = "";
+    if (urls.length > 0) {
+      for (let i = 0; i < urls.length; i++) {
+        recentCode = urls[0].ps;
+        if (recentCode != "") {
+          recentGraphUri = urls[i].url;
+          break;
+        }
+      }
+    }
+
     this.setState({
       message: {
         urls,
@@ -47,6 +62,8 @@ class App extends React.Component {
       },
       stack: stack,
       isActive: isActive,
+      recentCode: recentCode,
+      recentGraphUri: recentGraphUri,
     });
   };
 
@@ -110,7 +127,7 @@ class App extends React.Component {
 
     var useLocalDoc = true;
     var docRoot =
-      "https://raw.githubusercontent.com/merill/SaveAsScriptHackathon/main/src/public/doc/";
+      "https://raw.githubusercontent.com/dhruvchand/SaveAsScriptHackathon/main/src/public/doc/";
     if (useLocalDoc) {
       docRoot = "./doc/";
     }
@@ -135,20 +152,21 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          Graph XRay
           <button onClick={this.toggleStart}>
             {this.state.isActive ? "Stop Recording" : "Start Recording"}
           </button>
           <button onClick={this.clearData}>Clear Data</button>
           <button onClick={this.openOptionsPage}>View More</button>
-          <table>
-            <tbody>
-              {Object.entries(this.state.message).map((k) => (
-                <tr key={k}>{`${k[0]}: ${k[1]}`}</tr>
-              ))}
-            </tbody>
-          </table>
         </header>
         <div className="Markdown-body">
+          <h3>Commands used recently</h3>
+          {this.state.recentGraphUri}
+          <pre>
+            <code>{this.state.recentCode}</code>
+          </pre>
+          <hr></hr>
+          <h3>Graph APIs commonly used in this blade</h3>
           <ReactMarkdown children={this.state.doc} />
         </div>
       </div>
