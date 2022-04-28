@@ -21,7 +21,6 @@ export async function init() {
     await saveObjectInLocalStorage({
       currentMetrics: {
         urls: [],
-        requestBody: [],
       },
       contextSwitches: 0,
       stack: [],
@@ -29,31 +28,20 @@ export async function init() {
     });
   });
 
-  // chrome.webRequest.onCompleted.addListener(
-  //   async function (details) {
-  //     console.log(details.url);
-  //     console.log(!details.url.includes("ms.portal.azure."));
-  //     if (!details.url.includes("ms.portal.azure.")) {
-  //       const request = details.method + " " + details.url;
-  //       console.log(request);
-  //       const currentMetrics = await getCurrentMetrics();
-  //       currentMetrics.urls.unshift(request);
-  //       commitIfActive({
-  //         currentMetrics: {
-  //           ...currentMetrics,
-  //         },
-  //       });
-  //     }
-  //   },
-  //   {
-  //     urls: ["https://graph.microsoft.com/*"],
-  //     types: ["xmlhttprequest"],
-  //   }
-  // );
-
   chrome.webRequest.onBeforeRequest.addListener(
     async function (details) {
       console.log("onBeforeRequest", details);
+
+      let tabId = getActiveTab().tabId;
+      chrome.browserAction.getBadgeText({ tabId: tabId }, function (result) {
+        console.log("tab", result);
+        let count = result === null || isNaN(result) ? 0 : Number(result) + 1;
+        chrome.browserAction.setBadgeText({
+          tabId: tabId,
+          text: count.toString(),
+        });
+      });
+
       let requestBody;
       if (details.requestBody) {
         requestBody = decodeURIComponent(
@@ -71,8 +59,11 @@ export async function init() {
       const request = details.method + " " + details.url;
 
       const currentMetrics = await getCurrentMetrics();
-      currentMetrics.urls.unshift({ url: request, ps: powershellCmd });
-      currentMetrics.requestBody.unshift(requestBody);
+      currentMetrics.urls.unshift({
+        url: request,
+        ps: powershellCmd,
+        requestBody: requestBody,
+      });
       commitIfActive({
         currentMetrics: {
           ...currentMetrics,
@@ -107,7 +98,6 @@ export async function init() {
         await saveObjectInLocalStorage({
           currentMetrics: {
             urls: [],
-            requestBody: [],
             tabName: tab.title,
             tabUrl: tab.url,
           },
@@ -129,6 +119,11 @@ export async function init() {
       let contextSwitches = await getContextSwitches();
       const isActive = await getIsActive();
 
+      chrome.browserAction.setBadgeText({
+        tabId: tab.tabId,
+        text: null,
+      });
+
       if (isActive) {
         const currentMetricsSnapshot = {
           time: `${Math.round((performance.now() - startTime) / 1000)} s`,
@@ -141,7 +136,6 @@ export async function init() {
         await saveObjectInLocalStorage({
           currentMetrics: {
             urls: [],
-            requestBody: [],
             tabName: tab.title,
             tabUrl: tab.url,
           },
@@ -185,7 +179,6 @@ export async function init() {
       await saveObjectInLocalStorage({
         currentMetrics: {
           urls: [],
-          requestBody: [],
         },
         stack: [],
         contextSwitches: 0,
