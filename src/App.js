@@ -6,6 +6,8 @@ import { FontSizes } from "@fluentui/theme";
 import { IconButton } from "@fluentui/react/lib/Button";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { Separator } from "@fluentui/react/lib/Separator";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import {
   Stack,
@@ -225,9 +227,9 @@ class App extends React.Component {
             <b>Commands used recently</b>
           </Separator>
           {this.state.recentGraphUri}
-          <pre>
-            <code>{this.state.recentCode}</code>
-          </pre>
+          <SyntaxHighlighter language="powershell" style={docco}>
+            {this.state.recentCode}
+          </SyntaxHighlighter>
           <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
           <PrimaryButton onClick={this.openOptionsPage}>
             View All Commands
