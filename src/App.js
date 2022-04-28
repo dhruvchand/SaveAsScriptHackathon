@@ -140,6 +140,14 @@ class App extends React.Component {
       });
   };
 
+  openOptionsPage = () => {
+    if (chrome.runtime.openOptionsPage) {
+      chrome.runtime.openOptionsPage();
+    } else {
+      window.open(chrome.runtime.getURL("options.html"));
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -148,6 +156,7 @@ class App extends React.Component {
             {this.state.isActive ? "Stop Recording" : "Start Recording"}
           </button>
           <button onClick={this.clearData}>Clear Data</button>
+          <button onClick={this.openOptionsPage}>View More</button>
           <table>
             <tbody>
               {Object.entries(this.state.message).map((k) => (
