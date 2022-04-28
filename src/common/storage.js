@@ -52,7 +52,10 @@ const commitIfActive = async function (obj) {
   }
 };
 
-const getIsActive = async () => await getObjectFromLocalStorage("isActive");
+//const getIsActive = async () => await getObjectFromLocalStorage("isActive");
+const getIsActive = async () => {
+  return true;
+};
 const getStack = async () => await getObjectFromLocalStorage("stack");
 const getCurrentMetrics = async () =>
   await getObjectFromLocalStorage("currentMetrics");

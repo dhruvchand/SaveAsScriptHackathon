@@ -1,6 +1,19 @@
 import "./App.css";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { PrimaryButton, DefaultPalette } from "@fluentui/react";
+import { FontSizes } from "@fluentui/theme";
+import { IconButton } from "@fluentui/react/lib/Button";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
+import { Separator } from "@fluentui/react/lib/Separator";
+
+import {
+  Stack,
+  IStackStyles,
+  IStackTokens,
+  IStackItemStyles,
+} from "@fluentui/react/lib/Stack";
+
 import {
   saveObjectInLocalStorage,
   getIsActive,
@@ -13,6 +26,41 @@ import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
 
+initializeIcons();
+
+const settingsIcon = {
+  iconName: "Settings",
+  styles: {
+    root: {
+      color: "white",
+    },
+  },
+};
+
+// Non-mutating styles definition
+const stackItemStyles = {
+  root: {
+    alignItems: "center",
+    background: DefaultPalette.themeDarker,
+    color: DefaultPalette.white,
+    display: "flex",
+    height: 40,
+    justifyContent: "center",
+    overflow: "hidden",
+  },
+};
+const nonShrinkingStackItemStyles = {
+  root: {
+    alignItems: "center",
+    background: DefaultPalette.themeDarker,
+    color: DefaultPalette.white,
+    height: 40,
+    display: "flex",
+    justifyContent: "start",
+    overflow: "hidden",
+    paddingLeft: "10px",
+  },
+};
 class App extends React.Component {
   constructor() {
     super();
@@ -151,22 +199,42 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          Graph XRay
-          <button onClick={this.toggleStart}>
-            {this.state.isActive ? "Stop Recording" : "Start Recording"}
-          </button>
-          <button onClick={this.clearData}>Clear Data</button>
-          <button onClick={this.openOptionsPage}>View More</button>
-        </header>
-        <div className="Markdown-body">
-          <h3>Commands used recently</h3>
+        <Stack horizontal>
+          <Stack.Item
+            grow={5}
+            styles={nonShrinkingStackItemStyles}
+            disableShrink
+          >
+            <div
+              style={{ fontSize: FontSizes.size16, fontWeight: FontSizes.bold }}
+            >
+              Microsoft Graph X-Ray
+            </div>
+          </Stack.Item>
+          <Stack.Item grow styles={stackItemStyles}>
+            <IconButton
+              onClick={this.openOptionsPage}
+              iconProps={settingsIcon}
+              title="Settings"
+              ariaLabel="Settings"
+            />
+          </Stack.Item>
+        </Stack>
+        <div>
+          <Separator alignContent="start">
+            <b>Commands used recently</b>
+          </Separator>
           {this.state.recentGraphUri}
           <pre>
             <code>{this.state.recentCode}</code>
           </pre>
-          <hr></hr>
-          <h3>Graph APIs commonly used in this blade</h3>
+          <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
+          <PrimaryButton onClick={this.openOptionsPage}>
+            View All Commands
+          </PrimaryButton>
+          <Separator alignContent="start">
+            <b>Graph APIs commonly used in this blade</b>
+          </Separator>
           <ReactMarkdown children={this.state.doc} />
         </div>
       </div>
