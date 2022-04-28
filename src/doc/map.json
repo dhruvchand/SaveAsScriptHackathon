@@ -39,4 +39,10 @@
         "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/Owners/objectId/14f338a2-3327-466b-9cdf-c6870d5f20a7/appId/[ObjectId]",
         "Markdown": "service-principal-owners.md"
     }
+    ,
+    {
+        "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/SignIns",
+        "Markdown": "signin-logs.md"
+    }
+
 ]
