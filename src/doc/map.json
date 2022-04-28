@@ -29,7 +29,7 @@
     },
     {
         "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Owners/appId/[AppId]/isMSAApp/",
-        "Markdown": "application.owners.md"
+        "Markdown": "application-owners.md"
     },
     {
         "PortalUri":"https://portal.azure.com/#blade/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/AppAppsPreview/menuId/",

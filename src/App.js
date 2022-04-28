@@ -13,30 +13,6 @@ import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
 
-import ApplicationOwnersDoc from "./doc/application-owners.md";
-import ApplicationsDoc from "./doc/applications.md";
-import GroupMembersDoc from "./doc/group-members.md";
-import GroupMembershipsDoc from "./doc/group-memberships.md";
-import GroupOwnersDoc from "./doc/group-owners.md";
-import GroupsDoc from "./doc/groups.md";
-import ServicePrincipalOwnersDoc from "./doc/service-principal-owners.md";
-import ServicePrincipalsDoc from "./doc/service-principals.md";
-import UserDetailsDoc from "./doc/user-details.md";
-import UsersDoc from "./doc/users.md";
-
-const docPaths = {
-  "application-owners.md": ApplicationOwnersDoc,
-  "applications.md": ApplicationsDoc,
-  "group-members.md": GroupMembersDoc,
-  "group-memberships.md": GroupMembershipsDoc,
-  "group-owners.md": GroupOwnersDoc,
-  "groups.md": GroupsDoc,
-  "service-principal-owners.md": ServicePrincipalOwnersDoc,
-  "service-principals.md": ServicePrincipalsDoc,
-  "user-details.md": UserDetailsDoc,
-  "users.md": UsersDoc,
-};
-
 class App extends React.Component {
   constructor() {
     super();
@@ -131,7 +107,14 @@ class App extends React.Component {
     const result = urlDocMap.find(
       (entry) => entry.PortalUri === template.template
     );
-    const docPath = docPaths[result.Markdown];
+
+    var useLocalDoc = true;
+    var docRoot =
+      "https://raw.githubusercontent.com/merill/SaveAsScriptHackathon/main/src/public/doc/";
+    if (useLocalDoc) {
+      docRoot = "./doc/";
+    }
+    const docPath = docRoot + result.Markdown;
 
     await fetch(docPath)
       .then((response) => response.text())
@@ -165,7 +148,9 @@ class App extends React.Component {
             </tbody>
           </table>
         </header>
-        <ReactMarkdown children={this.state.doc} />
+        <div className="Markdown-body">
+          <ReactMarkdown children={this.state.doc} />
+        </div>
       </div>
     );
   }
