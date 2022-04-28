@@ -1,2 +1,2 @@
-* [Get-MgApplication](/powershell/module/microsoft.graph.applications/get-mgapplication?view=graph-powershell-1.0)
-* [New-MgApplication](/powershell/module/microsoft.graph.applications/new-mgapplication?view=graph-powershell-1.0)
+* [Get-MgApplication](https://docs.microsoft.com/powershell/module/microsoft.graph.applications/get-mgapplication?view=graph-powershell-1.0)
+* [New-MgApplication](https://docs.microsoft.com/powershell/module/microsoft.graph.applications/new-mgapplication?view=graph-powershell-1.0)

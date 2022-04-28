@@ -1,1 +1,1 @@
-[Get-MgAuditLogSignIn](/powershell/module/microsoft.graph.reports/get-mgauditlogsignin?view=graph-powershell-beta)
+[Get-MgAuditLogSignIn](https://docs.microsoft.com/powershell/module/microsoft.graph.reports/get-mgauditlogsignin?view=graph-powershell-beta)

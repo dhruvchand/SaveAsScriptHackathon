@@ -1,2 +1,2 @@
-* [Get-MgGroupMember](/powershell/module/microsoft.graph.groups/get-mggroupmember?view=graph-powershell-1.0)
-* [New-MgGroupMember](/powershell/module/microsoft.graph.groups/new-mggroupmember?view=graph-powershell-1.0)
+* [Get-MgGroupMember](https://docs.microsoft.com/powershell/module/microsoft.graph.groups/get-mggroupmember?view=graph-powershell-1.0)
+* [New-MgGroupMember](https://docs.microsoft.com/powershell/module/microsoft.graph.groups/new-mggroupmember?view=graph-powershell-1.0)
