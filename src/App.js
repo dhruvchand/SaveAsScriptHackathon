@@ -45,19 +45,11 @@ class App extends React.Component {
     //Get the most recent PowerShell command
     let recentGraphUri = "";
     let recentCode = "";
-    chrome.browserAction.setBadgeText({
-      tabId: getActiveTab().tabId,
-      text: null,
-    });
     if (urls.length > 0) {
       for (let i = 0; i < urls.length; i++) {
         recentCode = urls[0].ps;
         if (recentCode != "") {
           recentGraphUri = urls[i].url;
-          chrome.browserAction.setBadgeText({
-            tabId: getActiveTab().tabId,
-            text: "1",
-          });
           break;
         }
       }
