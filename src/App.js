@@ -7,7 +7,7 @@ import { IconButton } from "@fluentui/react/lib/Button";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { Separator } from "@fluentui/react/lib/Separator";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 import { Stack } from "@fluentui/react/lib/Stack";
 
@@ -231,7 +231,11 @@ class App extends React.Component {
             <b>Commands used recently</b>
           </Separator>
           {this.state.recentGraphUri}
-          <SyntaxHighlighter language="powershell" style={docco} wrapLines>
+          <SyntaxHighlighter
+            language="powershell"
+            style={atomOneDark}
+            wrapLongLines={true}
+          >
             {this.state.recentCode}
           </SyntaxHighlighter>
           <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
