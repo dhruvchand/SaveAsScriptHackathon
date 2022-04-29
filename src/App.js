@@ -1,16 +1,14 @@
 import "./App.css";
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import { PrimaryButton, DefaultPalette } from "@fluentui/react";
+import { PrimaryButton, DefaultPalette, getTheme } from "@fluentui/react";
 import { FontSizes } from "@fluentui/theme";
 import { IconButton } from "@fluentui/react/lib/Button";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { Separator } from "@fluentui/react/lib/Separator";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
 import { Stack } from "@fluentui/react/lib/Stack";
-
 import {
   saveObjectInLocalStorage,
   getIsActive,
@@ -23,6 +21,7 @@ import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
 
 initializeIcons();
+const theme = getTheme();
 
 const settingsIcon = {
   iconName: "Settings",
@@ -194,7 +193,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App" style={{ fontSize: FontSizes.size12 }}>
         <Stack horizontal>
           <Stack.Item grow styles={stackItemStyles}>
             <img alt="logo" src="./img/icon-16.svg" height="22px"></img>
@@ -222,26 +221,46 @@ class App extends React.Component {
             />
           </Stack.Item>
         </Stack>
-        <div>
-          <Separator alignContent="start">
-            <b>Graph APIs commonly used in this blade</b>
-          </Separator>
-          <ReactMarkdown children={this.state.doc} />
-          <Separator alignContent="start">
-            <b>Commands used recently</b>
-          </Separator>
-          {this.state.recentGraphUri}
-          <SyntaxHighlighter
-            language="powershell"
-            style={atomOneDark}
-            wrapLongLines={true}
+        <div className="App-body">
+          <div
+            style={{
+              boxShadow: theme.effects.elevation16,
+              padding: "10px",
+              marginBottom: "15px",
+            }}
           >
-            {this.state.recentCode}
-          </SyntaxHighlighter>
-          <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
-          <PrimaryButton onClick={this.openOptionsPage}>
-            View All Commands
-          </PrimaryButton>
+            <h2>Graph API commonly used in this blade</h2>
+            <ReactMarkdown children={this.state.doc} />
+          </div>
+          <div
+            style={{
+              boxShadow: theme.effects.elevation16,
+              padding: "10px",
+              marginBottom: "15px",
+            }}
+          >
+            <h2>Graph call history</h2>
+            <PrimaryButton onClick={this.openOptionsPage}>
+              View Graph calls in realtime
+            </PrimaryButton>
+            <SyntaxHighlighter
+              language="jboss-cli"
+              style={atomOneDark}
+              wrapLongLines={true}
+            >
+              {this.state.recentGraphUri}
+            </SyntaxHighlighter>
+            <SyntaxHighlighter
+              language="powershell"
+              style={atomOneDark}
+              wrapLongLines={true}
+            >
+              {this.state.recentCode}
+            </SyntaxHighlighter>
+          </div>
+          <div style={{ padding: "10px" }}>
+            <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
+          </div>
         </div>
       </div>
     );
