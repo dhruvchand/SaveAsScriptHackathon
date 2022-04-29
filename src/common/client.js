@@ -10,6 +10,7 @@ const config = {
 };
 
 const getPowershellCmd = async function (method, url) {
+  console.log("fetch:", url, method);
   const path = url.split("/graph.microsoft.com")[1];
   const payload = `${method} ${path} HTTP/1.1\r\nHost: graph.microsoft.com\r\nContent-Type: application/json\r\n\r\n`;
 
