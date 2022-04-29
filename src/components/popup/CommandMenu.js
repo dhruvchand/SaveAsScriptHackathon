@@ -1,6 +1,7 @@
 import * as React from "react";
 import { CommandBar } from "@fluentui/react/lib/CommandBar";
 import { DefaultPalette } from "@fluentui/react";
+import { ContextualMenuItemType } from "@fluentui/react/lib/ContextualMenu";
 
 const styleBlue = {
   root: {
@@ -42,6 +43,17 @@ export const openOptionsPage = () => {
   }
 };
 
+export const clearData = () => {
+  chrome.runtime.sendMessage(
+    {
+      method: "clear",
+    },
+    function (response) {
+      console.log("data cleared");
+    }
+  );
+};
+
 export const CommandMenu = () => {
   return (
     <CommandBar
@@ -54,6 +66,22 @@ export const CommandMenu = () => {
 };
 
 const _overflowItems = [
+  {
+    key: "history",
+    text: "View Graph calls",
+    onClick: () => openOptionsPage(),
+    iconProps: { iconName: "OpenInNewTab" },
+  },
+  {
+    key: "clear",
+    text: "Clear Graph call history",
+    onClick: () => clearData(),
+    iconProps: { iconName: "Delete" },
+  },
+  {
+    key: "divider1",
+    itemType: ContextualMenuItemType.Divider,
+  },
   {
     key: "settings",
     text: "Settings",

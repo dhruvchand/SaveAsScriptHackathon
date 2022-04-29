@@ -16,7 +16,10 @@ import {
 import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
-import { CommandMenu } from "./components/popup/CommandMenu.js";
+import {
+  CommandMenu,
+  openOptionsPage,
+} from "./components/popup/CommandMenu.js";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
 const theme = getTheme();
@@ -98,17 +101,6 @@ class App extends React.Component {
       recentCode: recentCode,
       recentGraphUri: recentGraphUri,
     });
-  };
-
-  clearData = () => {
-    chrome.runtime.sendMessage(
-      {
-        method: "clear",
-      },
-      function (response) {
-        console.log("data cleared");
-      }
-    );
   };
 
   toggleStart = () => {
@@ -217,7 +209,10 @@ class App extends React.Component {
             }}
           >
             <h2>Graph call history</h2>
-            <PrimaryButton onClick={this.openOptionsPage}>
+            <PrimaryButton
+              onClick={openOptionsPage}
+              iconProps={{ iconName: "OpenInNewTab" }}
+            >
               View Graph calls in realtime
             </PrimaryButton>
             <SyntaxHighlighter
@@ -234,9 +229,6 @@ class App extends React.Component {
             >
               {this.state.recentCode}
             </SyntaxHighlighter>
-          </div>
-          <div style={{ padding: "10px" }}>
-            <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
           </div>
         </div>
       </div>
