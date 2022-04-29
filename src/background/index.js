@@ -52,13 +52,43 @@ export async function init() {
         );
       }
       console.log("requestBody", requestBody);
+      console.log("details.requestBody", requestBody);
+      console.log("details.requestBody.requests", requestBody.requests);
+      const currentMetrics = await getCurrentMetrics();
+      let calls = [];
+
+      if (details.url.includes("/$batch") && requestBody) {
+        const version = details.url.split("/$batch")[0];
+        let requests = JSON.parse(requestBody)?.requests;
+        calls = await Promise.all(
+          requests.map(async (request) => {
+            const powershellCmd = await getPowershellCmd(
+              request.method,
+              version + request.url
+            );
+            console.log("powershellCmd r", powershellCmd);
+            return {
+              url: request.method + " " + request.url,
+              ps: powershellCmd,
+              requestBody: request?.requestBody,
+            };
+          })
+        );
+
+        currentMetrics.urls.unshift(...calls);
+        commitIfActive({
+          currentMetrics: {
+            ...currentMetrics,
+          },
+        });
+        return;
+      }
 
       const powershellCmd = await getPowershellCmd(details.method, details.url);
 
       console.log(powershellCmd);
       const request = details.method + " " + details.url;
 
-      const currentMetrics = await getCurrentMetrics();
       currentMetrics.urls.unshift({
         url: request,
         ps: powershellCmd,
