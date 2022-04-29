@@ -3,9 +3,6 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { PrimaryButton, DefaultPalette, getTheme } from "@fluentui/react";
 import { FontSizes } from "@fluentui/theme";
-import { IconButton } from "@fluentui/react/lib/Button";
-import { initializeIcons } from "@fluentui/font-icons-mdl2";
-import { Separator } from "@fluentui/react/lib/Separator";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Stack } from "@fluentui/react/lib/Stack";
@@ -19,18 +16,11 @@ import {
 import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
+import { CommandMenu } from "./components/popup/CommandMenu.js";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
-initializeIcons();
 const theme = getTheme();
-
-const settingsIcon = {
-  iconName: "Settings",
-  styles: {
-    root: {
-      color: "white",
-    },
-  },
-};
+initializeIcons();
 
 // Non-mutating styles definition
 const stackItemStyles = {
@@ -183,14 +173,6 @@ class App extends React.Component {
       });
   };
 
-  openOptionsPage = () => {
-    if (chrome.runtime.openOptionsPage) {
-      chrome.runtime.openOptionsPage();
-    } else {
-      window.open(chrome.runtime.getURL("options.html"));
-    }
-  };
-
   render() {
     return (
       <div className="App" style={{ fontSize: FontSizes.size12 }}>
@@ -213,12 +195,7 @@ class App extends React.Component {
             </div>
           </Stack.Item>
           <Stack.Item grow styles={stackItemStyles}>
-            <IconButton
-              onClick={this.openOptionsPage}
-              iconProps={settingsIcon}
-              title="Settings"
-              ariaLabel="Settings"
-            />
+            <CommandMenu></CommandMenu>
           </Stack.Item>
         </Stack>
         <div className="App-body">
