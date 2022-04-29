@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
   "version": "0.0.2",
-  "short_name": "Graph XRay",
-  "name": "Graph XRay",
-  "description": "Graph XRay",
+  "short_name": "Graph X-Ray",
+  "name": "Graph X-Ray",
+  "description": "View Microsoft Graph API and Graph PowerShell information on the active Azure Portal page.",
   "browser_action": {
-    "default_title": "Graph XRay",
+    "default_title": "Graph X-Ray",
     "default_popup": "popup.html"
   },
   "background": {

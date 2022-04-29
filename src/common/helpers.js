@@ -13,7 +13,7 @@ function matchTemplateCandidate(url, template) {
   const urlSegments = url.split("/");
   const templateSegments = template.split("/");
 
-  if (urlSegments.length != templateSegments.length) {
+  if (urlSegments.length !== templateSegments.length) {
     return;
   }
 

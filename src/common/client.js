@@ -1,5 +1,4 @@
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 
 const ENDPOINT =
   "https://graphexplorerapi.azurewebsites.net/api/graphexplorersnippets?lang=powershell&generation=openapi";

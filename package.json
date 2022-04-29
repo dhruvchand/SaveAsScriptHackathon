@@ -1,10 +1,11 @@
 {
-  "name": "effort-counter-react-extension",
+  "name": "graph-x-ray-react-extension",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
     "@fluentui/react": "^8.67.2",
+    "@fluentui/react-icons-mdl2-branded": "^1.2.8",
     "@svgr/webpack": "5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

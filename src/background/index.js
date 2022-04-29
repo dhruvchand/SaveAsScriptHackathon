@@ -84,7 +84,6 @@ export async function init() {
       let stack = await getStack();
       let contextSwitches = await getContextSwitches();
       const isActive = await getIsActive();
-      const timeElapsed = performance.now() - startTime;
 
       if (isActive) {
         const currentMetricsSnapshot = {
@@ -111,7 +110,7 @@ export async function init() {
   //record context switch when the current tab title changes
   chrome.tabs.onUpdated.addListener(async function (tabId, changeInfo) {
     console.log(changeInfo);
-    const isLoading = changeInfo.status && changeInfo.status == "loading";
+    const isLoading = changeInfo.status && changeInfo.status === "loading";
     if ((changeInfo.title || changeInfo.url) && !isLoading) {
       const [tab] = await getActiveTab();
       const currentMetrics = await getCurrentMetrics();

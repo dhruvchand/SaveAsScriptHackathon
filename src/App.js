@@ -9,19 +9,13 @@ import { Separator } from "@fluentui/react/lib/Separator";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-import {
-  Stack,
-  IStackStyles,
-  IStackTokens,
-  IStackItemStyles,
-} from "@fluentui/react/lib/Stack";
+import { Stack } from "@fluentui/react/lib/Stack";
 
 import {
   saveObjectInLocalStorage,
   getIsActive,
   getCurrentMetrics,
   getStack,
-  getContextSwitches,
 } from "./common/storage.js";
 
 import urlDocMap from "./doc/map.json";
@@ -46,7 +40,7 @@ const stackItemStyles = {
     background: DefaultPalette.themeDarker,
     color: DefaultPalette.white,
     display: "flex",
-    height: 40,
+    height: 50,
     justifyContent: "center",
     overflow: "hidden",
   },
@@ -56,7 +50,7 @@ const nonShrinkingStackItemStyles = {
     alignItems: "center",
     background: DefaultPalette.themeDarker,
     color: DefaultPalette.white,
-    height: 40,
+    height: 50,
     display: "flex",
     justifyContent: "start",
     overflow: "hidden",
@@ -98,7 +92,7 @@ class App extends React.Component {
     if (urls.length > 0) {
       for (let i = 0; i < urls.length; i++) {
         recentCode = urls[0].ps;
-        if (recentCode != "") {
+        if (recentCode !== "") {
           recentGraphUri = urls[i].url;
           break;
         }
@@ -129,7 +123,7 @@ class App extends React.Component {
   };
 
   toggleStart = () => {
-    this.state.isActive = !this.state.isActive;
+    this.setState({ isActive: !this.state.isActive });
 
     if (this.state.isActive) {
       chrome.runtime.sendMessage(
@@ -202,13 +196,19 @@ class App extends React.Component {
     return (
       <div className="App">
         <Stack horizontal>
+          <Stack.Item grow styles={stackItemStyles}>
+            <img alt="logo" src="./img/icon-16.svg" height="22px"></img>
+          </Stack.Item>
           <Stack.Item
-            grow={5}
+            grow={10}
             styles={nonShrinkingStackItemStyles}
             disableShrink
           >
             <div
-              style={{ fontSize: FontSizes.size16, fontWeight: FontSizes.bold }}
+              style={{
+                fontSize: FontSizes.size16,
+                fontWeight: 600,
+              }}
             >
               Microsoft Graph X-Ray
             </div>
@@ -224,20 +224,20 @@ class App extends React.Component {
         </Stack>
         <div>
           <Separator alignContent="start">
+            <b>Graph APIs commonly used in this blade</b>
+          </Separator>
+          <ReactMarkdown children={this.state.doc} />
+          <Separator alignContent="start">
             <b>Commands used recently</b>
           </Separator>
           {this.state.recentGraphUri}
-          <SyntaxHighlighter language="powershell" style={docco}>
+          <SyntaxHighlighter language="powershell" style={docco} wrapLines>
             {this.state.recentCode}
           </SyntaxHighlighter>
           <PrimaryButton onClick={this.clearData}>Clear Data</PrimaryButton>
           <PrimaryButton onClick={this.openOptionsPage}>
             View All Commands
           </PrimaryButton>
-          <Separator alignContent="start">
-            <b>Graph APIs commonly used in this blade</b>
-          </Separator>
-          <ReactMarkdown children={this.state.doc} />
         </div>
       </div>
     );
