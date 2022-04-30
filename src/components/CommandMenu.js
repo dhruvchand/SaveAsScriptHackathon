@@ -54,17 +54,6 @@ export const clearData = () => {
   );
 };
 
-export const CommandMenu = () => {
-  return (
-    <CommandBar
-      overflowItems={_overflowItems}
-      overflowButtonProps={overflowProps}
-      ariaLabel="Clear state and open settings window commands"
-      styles={styleBlue}
-    />
-  );
-};
-
 const _overflowItems = [
   {
     key: "history",
@@ -89,3 +78,14 @@ const _overflowItems = [
     iconProps: { iconName: "Settings" },
   },
 ];
+
+export const CommandMenu = () => {
+  return (
+    <CommandBar
+      overflowItems={_overflowItems}
+      overflowButtonProps={overflowProps}
+      ariaLabel="Clear state and open settings window commands"
+      styles={styleBlue}
+    />
+  );
+};
