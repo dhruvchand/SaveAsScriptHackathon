@@ -5,23 +5,43 @@ import { AppHeader } from "../components/AppHeader";
 import { FontSizes } from "@fluentui/theme";
 import { PrimaryButton, DefaultPalette, getTheme } from "@fluentui/react";
 import { getRequestBody, getCodeView } from "../common/client.js";
+import { Dropdown } from "@fluentui/react/lib/Dropdown";
 
 const theme = getTheme();
+
+const dropdownStyles = {
+  dropdown: { width: 300 },
+};
+
+const options = [
+  { key: "powershell", text: "PowerShell" },
+  { key: "c#", text: "C#" },
+  { key: "javascript", text: "JavaScript" },
+  { key: "java", text: "Java" },
+  { key: "objective-c", text: "Objective-C" },
+  { key: "go", text: "Go" },
+];
 
 class DevTools extends React.Component {
   constructor() {
     super();
     this.state = {
       stack: [],
+      snippetLanguage: "powershell",
     };
   }
+
   componentDidMount() {
     // Add listener when component mounts
     this.addListener();
   }
 
+  clearStack() {
+    this.setState({ stack: [] });
+  }
+
   async addRequestToStack(request) {
-    const codeView = await getCodeView(request);
+    const codeView = await getCodeView(this.state.snippetLanguage, request);
     if (codeView) {
       this.setState({ stack: [...this.state.stack, codeView] });
     }
@@ -65,6 +85,10 @@ class DevTools extends React.Component {
     });
   }
 
+  onLanguageChange = (e, option) => {
+    this.setState({ snippetLanguage: option.key });
+    this.clearStack();
+  };
   render() {
     return (
       <div className="App" style={{ fontSize: FontSizes.size12 }}>
@@ -83,8 +107,15 @@ class DevTools extends React.Component {
               means the stack trace will only be displayed on supported blades
               (E.g. Users, Applications, etc.).
             </p>
+            <Dropdown
+              placeholder="Select an option"
+              label="Select language"
+              options={options}
+              styles={dropdownStyles}
+              defaultSelectedKey={this.state.snippetLanguage}
+              onChange={this.onLanguageChange}
+            />
           </div>
-
           <div
             style={{
               boxShadow: theme.effects.elevation16,
@@ -101,7 +132,11 @@ class DevTools extends React.Component {
                   marginBottom: "15px",
                 }}
               >
-                <CodeView request={request} lightUrl={true}></CodeView>
+                <CodeView
+                  request={request}
+                  lightUrl={true}
+                  snippetLanguage={this.state.snippetLanguage}
+                ></CodeView>
               </div>
             ))}
           </div>

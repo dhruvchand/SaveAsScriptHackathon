@@ -4,11 +4,13 @@ import {
   atomOneLight,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
-export const CodeView = ({ request, lightUrl }) => {
+export const CodeView = ({ request, lightUrl, snippetLanguage }) => {
   let urlStyle = atomOneDark;
   if (lightUrl) {
     urlStyle = atomOneLight;
   }
+
+  let syntaxLanguage = snippetLanguage;
 
   return (
     <div>
@@ -23,7 +25,7 @@ export const CodeView = ({ request, lightUrl }) => {
       )}
       {request.code && request.code.length > 0 && (
         <SyntaxHighlighter
-          language="powershell"
+          language={syntaxLanguage}
           style={atomOneDark}
           wrapLongLines={true}
         >
