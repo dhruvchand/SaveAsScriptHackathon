@@ -6,7 +6,7 @@ import { FontSizes } from "@fluentui/theme";
 import { PrimaryButton, DefaultPalette, getTheme } from "@fluentui/react";
 import { getRequestBody, getCodeView } from "../common/client.js";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
-import { DevToolsCommandBar } from "../components/DevToolsCommandBar";
+import DevToolsCommandBar from "../components/DevToolsCommandBar";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
 const theme = getTheme();
@@ -17,12 +17,12 @@ const dropdownStyles = {
 };
 
 const options = [
-  { key: "powershell", text: "PowerShell" },
-  { key: "c#", text: "C#" },
-  { key: "javascript", text: "JavaScript" },
-  { key: "java", text: "Java" },
-  { key: "objective-c", text: "Objective-C" },
-  { key: "go", text: "Go" },
+  { key: "powershell", text: "PowerShell", fileExt: "ps1" },
+  { key: "c#", text: "C#", fileExt: "cs" },
+  { key: "javascript", text: "JavaScript", fileExt: "js" },
+  { key: "java", text: "Java", fileExt: "java" },
+  { key: "objective-c", text: "Objective-C", fileExt: "c" },
+  { key: "go", text: "Go", fileExt: "go" },
 ];
 
 class DevTools extends React.Component {
@@ -39,8 +39,43 @@ class DevTools extends React.Component {
     this.addListener();
   }
 
-  clearStack() {
+  clearStack = () => {
     this.setState({ stack: [] });
+  };
+
+  saveScript = () => {
+    const script = this.getSaveScriptContent();
+    const languageOpt = options.filter((opt) => {
+      return opt.key === this.state.snippetLanguage;
+    });
+    const fileName = "GraphXRaySession." + languageOpt[0].fileExt;
+    this.downloadFile(script, fileName);
+  };
+
+  copyScript = () => {
+    const script = this.getSaveScriptContent();
+    navigator.clipboard.writeText(script);
+  };
+
+  getSaveScriptContent() {
+    let script = "";
+    this.state.stack.forEach((request) => {
+      if (request.code) {
+        script += "\n\n" + request.code;
+      }
+    });
+    return script;
+  }
+
+  downloadFile(content, filename) {
+    const element = document.createElement("a");
+    const file = new Blob([content], {
+      type: "text/plain",
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = filename;
+    document.body.appendChild(element);
+    element.click();
   }
 
   async addRequestToStack(request) {
@@ -96,7 +131,11 @@ class DevTools extends React.Component {
     return (
       <div className="App" style={{ fontSize: FontSizes.size12 }}>
         <AppHeader hideSettings={true}></AppHeader>
-        <DevToolsCommandBar></DevToolsCommandBar>
+        <DevToolsCommandBar
+          clearStack={this.clearStack}
+          saveScript={this.saveScript}
+          copyScript={this.copyScript}
+        ></DevToolsCommandBar>
         <header className="App-header">
           <div
             style={{
@@ -107,9 +146,10 @@ class DevTools extends React.Component {
           >
             <h2>Graph Call Stack Trace</h2>
             <p>
-              Not all Azure Portal blades use the published Graph APIs, this
-              means the stack trace will only be displayed on supported blades
-              (E.g. Users, Applications, etc.).
+              Displays the Graph API calls that are being made by the current
+              browser tab. This functionality is available on Azure Active
+              Directory blades that use Graph API (E.g. Users, Groups,
+              Enterprise Applications, Administrative Units, etc).
             </p>
             <Dropdown
               placeholder="Select an option"
