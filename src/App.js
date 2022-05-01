@@ -10,7 +10,6 @@ import {
   getCurrentMetrics,
   getStack,
 } from "./common/storage.js";
-import { CodeView } from "./components/CodeView";
 import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";

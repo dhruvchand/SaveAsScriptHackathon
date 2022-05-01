@@ -6,8 +6,11 @@ import { FontSizes } from "@fluentui/theme";
 import { PrimaryButton, DefaultPalette, getTheme } from "@fluentui/react";
 import { getRequestBody, getCodeView } from "../common/client.js";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
+import { DevToolsCommandBar } from "../components/DevToolsCommandBar";
+import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
 const theme = getTheme();
+initializeIcons();
 
 const dropdownStyles = {
   dropdown: { width: 300 },
@@ -93,6 +96,7 @@ class DevTools extends React.Component {
     return (
       <div className="App" style={{ fontSize: FontSizes.size12 }}>
         <AppHeader hideSettings={true}></AppHeader>
+        <DevToolsCommandBar></DevToolsCommandBar>
         <header className="App-header">
           <div
             style={{
