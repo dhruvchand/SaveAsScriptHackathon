@@ -1,15 +1,15 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "0.0.2",
   "short_name": "Graph X-Ray",
   "name": "Graph X-Ray",
   "description": "View Microsoft Graph API and Graph PowerShell information on the active Azure Portal page.",
-  "browser_action": {
+  "action": {
     "default_title": "Graph X-Ray",
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": ["background.bundle.js"]
+    "service_worker": "background.bundle.js"
   },
   "content_scripts": [
     {
@@ -17,12 +17,20 @@
       "js": ["contentScript.bundle.js"]
     }
   ],
+  "host_permissions": [
+    "https://portal.azure.com/",
+    "https://graph.microsoft.com/"
+  ],
   "icons": {
     "16": "img/icon-16.png",
     "48": "img/icon-48.png",
     "128": "img/icon-128.png"
   },
   "options_page": "options.html",
-  "permissions": ["<all_urls>","webRequest","webRequestBlocking", "activeTab", "storage", "tabs"],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "devtools_page": "dev.html",
+  "permissions": ["webRequest", "activeTab", "storage", "tabs"],
+  "content_security_policy": {
+    "script-src": "self",
+    "object-src": "self"
+  }
 }

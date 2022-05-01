@@ -14,9 +14,7 @@ import { CodeView } from "./components/CodeView";
 import urlDocMap from "./doc/map.json";
 import { getActiveTab } from "./common/tabs";
 import { findMatchingUrlTemplate } from "./common/helpers";
-import {
-  openOptionsPage,
-} from "./components/CommandMenu.js";
+import { openOptionsPage } from "./components/CommandMenu.js";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 
 const theme = getTheme();
@@ -161,13 +159,16 @@ class App extends React.Component {
             }}
           >
             <h2>Graph call history</h2>
+            <p>
+              To view Graph calls in real-time open Developer Tools and switch
+              to the Graph X-Ray panel.
+            </p>
             <PrimaryButton
               onClick={openOptionsPage}
               iconProps={{ iconName: "OpenInNewTab" }}
             >
-              View Graph calls in realtime
+              Show me how
             </PrimaryButton>
-            <CodeView httpRequest={this.state.recentGraphUri} code={this.state.recentCode}></CodeView>
           </div>
         </div>
       </div>

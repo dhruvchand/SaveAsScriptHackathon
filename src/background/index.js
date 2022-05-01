@@ -9,7 +9,6 @@ import {
 
 import { getActiveTab, getStartTab } from "../common/tabs.js";
 
-import { getPowershellCmd } from "../common/client.js";
 init();
 
 // This needs to be an export due to typescript implementation limitation of needing '--isolatedModules' tsconfig
@@ -33,71 +32,13 @@ export async function init() {
       console.log("onBeforeRequest", details);
 
       let tabId = getActiveTab().tabId;
-      chrome.browserAction.getBadgeText({ tabId: tabId }, function (result) {
+      chrome.action.getBadgeText({ tabId: tabId }, function (result) {
         console.log("tab", result);
         let count = result === null || isNaN(result) ? 0 : Number(result) + 1;
-        chrome.browserAction.setBadgeText({
+        chrome.action.setBadgeText({
           tabId: tabId,
           text: count.toString(),
         });
-      });
-
-      let requestBody;
-      if (details.requestBody) {
-        requestBody = decodeURIComponent(
-          String.fromCharCode.apply(
-            null,
-            new Uint8Array(details.requestBody.raw[0].bytes)
-          )
-        );
-      }
-      console.log("requestBody", requestBody);
-      console.log("details.requestBody", requestBody);
-      console.log("details.requestBody.requests", requestBody.requests);
-      const currentMetrics = await getCurrentMetrics();
-      let calls = [];
-
-      if (details.url.includes("/$batch") && requestBody) {
-        const version = details.url.split("/$batch")[0];
-        let requests = JSON.parse(requestBody)?.requests;
-        calls = await Promise.all(
-          requests.map(async (request) => {
-            const powershellCmd = await getPowershellCmd(
-              request.method,
-              version + request.url
-            );
-            console.log("powershellCmd r", powershellCmd);
-            return {
-              url: request.method + " " + request.url,
-              ps: powershellCmd,
-              requestBody: request?.requestBody,
-            };
-          })
-        );
-
-        currentMetrics.urls.unshift(...calls);
-        commitIfActive({
-          currentMetrics: {
-            ...currentMetrics,
-          },
-        });
-        return;
-      }
-
-      const powershellCmd = await getPowershellCmd(details.method, details.url);
-
-      console.log(powershellCmd);
-      const request = details.method + " " + details.url;
-
-      currentMetrics.urls.unshift({
-        url: request,
-        ps: powershellCmd,
-        requestBody: requestBody,
-      });
-      commitIfActive({
-        currentMetrics: {
-          ...currentMetrics,
-        },
       });
     },
     { urls: ["https://graph.microsoft.com/*"] },
@@ -148,9 +89,9 @@ export async function init() {
       let contextSwitches = await getContextSwitches();
       const isActive = await getIsActive();
 
-      chrome.browserAction.setBadgeText({
+      chrome.action.setBadgeText({
         tabId: tab.tabId,
-        text: null,
+        text: "",
       });
 
       if (isActive) {

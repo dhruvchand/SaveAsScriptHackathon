@@ -46,6 +46,8 @@ if (
     paths.appContentScriptJs,
     paths.appOptionsHtml,
     paths.appOptionsJs,
+    paths.appDevToolsHtml,
+    paths.appDevToolsJs,
   ])
 ) {
   process.exit(1);

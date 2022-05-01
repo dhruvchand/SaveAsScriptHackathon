@@ -162,6 +162,12 @@ module.exports = function (webpackEnv) {
             '?http://localhost:4000',
         paths.appOptionsJs,
       ].filter(Boolean),
+      devtools: [
+        isEnvDevelopment &&
+          require.resolve('webpack-dev-server/client') +
+            '?http://localhost:4000',
+        paths.appDevToolsJs,
+      ].filter(Boolean),
       background: [
         isEnvDevelopment &&
           require.resolve('webpack-dev-server/client') +
@@ -562,6 +568,33 @@ module.exports = function (webpackEnv) {
             : undefined
         )
       ),
+      new HtmlWebpackPlugin(
+        Object.assign(
+          {},
+          {
+            inject: true,
+            template: paths.appDevToolsHtml,
+            chunks: ['devtools'],
+            filename: 'devtools.html',
+          },
+          isEnvProduction
+            ? {
+                minify: {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+                },
+              }
+            : undefined
+        )
+      ),      
       // Makes some environment variables available in index.html.
       // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
       // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
