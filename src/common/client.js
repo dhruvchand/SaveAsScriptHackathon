@@ -14,7 +14,7 @@ const getPowershellCmd = async function (snippetLanguage, method, url, body) {
     //Urls inside batch don't include host info.
     path = url.split("/graph.microsoft.com")[1];
   }
-
+  path = encodeURI(path); //Replace the spaces in OData with + as expected by API
   const payload = `${method} ${path} HTTP/1.1\r\nHost: graph.microsoft.com\r\nContent-Type: application/json\r\n\r\n${bodyText}`;
   console.log("Payload:", payload);
 
