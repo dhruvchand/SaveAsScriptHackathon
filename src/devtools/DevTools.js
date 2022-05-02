@@ -8,6 +8,7 @@ import { getRequestBody, getCodeView } from "../common/client.js";
 import { Dropdown } from "@fluentui/react/lib/Dropdown";
 import DevToolsCommandBar from "../components/DevToolsCommandBar";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
+import { Layer, LayerHost } from "@fluentui/react/lib/Layer";
 
 const theme = getTheme();
 initializeIcons();
@@ -130,17 +131,26 @@ class DevTools extends React.Component {
   render() {
     return (
       <div className="App" style={{ fontSize: FontSizes.size12 }}>
-        <AppHeader hideSettings={true}></AppHeader>
-        <DevToolsCommandBar
-          clearStack={this.clearStack}
-          saveScript={this.saveScript}
-          copyScript={this.copyScript}
-        ></DevToolsCommandBar>
+        <Layer>
+          <div
+            style={{
+              boxShadow: theme.effects.elevation4,
+            }}
+          >
+            <AppHeader hideSettings={true}></AppHeader>
+            <DevToolsCommandBar
+              clearStack={this.clearStack}
+              saveScript={this.saveScript}
+              copyScript={this.copyScript}
+            ></DevToolsCommandBar>
+          </div>
+        </Layer>
         <header className="App-header">
           <div
             style={{
               boxShadow: theme.effects.elevation16,
               padding: "10px",
+              marginTop: "80px",
               marginBottom: "15px",
             }}
           >
@@ -160,30 +170,32 @@ class DevTools extends React.Component {
               onChange={this.onLanguageChange}
             />
           </div>
-          <div
-            style={{
-              boxShadow: theme.effects.elevation16,
-              padding: "10px",
-              marginBottom: "15px",
-            }}
-          >
-            {this.state.stack.map((request, index) => (
-              <div
-                key={index}
-                style={{
-                  boxShadow: theme.effects.elevation16,
-                  padding: "10px",
-                  marginBottom: "15px",
-                }}
-              >
-                <CodeView
-                  request={request}
-                  lightUrl={true}
-                  snippetLanguage={this.state.snippetLanguage}
-                ></CodeView>
-              </div>
-            ))}
-          </div>
+          {this.state.stack && this.state.stack.length > 0 && (
+            <div
+              style={{
+                boxShadow: theme.effects.elevation16,
+                padding: "10px",
+                marginBottom: "15px",
+              }}
+            >
+              {this.state.stack.map((request, index) => (
+                <div
+                  key={index}
+                  style={{
+                    boxShadow: theme.effects.elevation16,
+                    padding: "10px",
+                    marginBottom: "15px",
+                  }}
+                >
+                  <CodeView
+                    request={request}
+                    lightUrl={true}
+                    snippetLanguage={this.state.snippetLanguage}
+                  ></CodeView>
+                </div>
+              ))}
+            </div>
+          )}
         </header>
       </div>
     );

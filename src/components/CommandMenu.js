@@ -2,8 +2,6 @@ import * as React from "react";
 import { CommandBar } from "@fluentui/react/lib/CommandBar";
 import { DefaultPalette } from "@fluentui/react";
 import { ContextualMenuItemType } from "@fluentui/react/lib/ContextualMenu";
-import { TeachingBubble } from "@fluentui/react/lib/TeachingBubble";
-import { useBoolean, useId } from "@fluentui/react-hooks";
 
 const styleBlue = {
   root: {
