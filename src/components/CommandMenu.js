@@ -2,6 +2,8 @@ import * as React from "react";
 import { CommandBar } from "@fluentui/react/lib/CommandBar";
 import { DefaultPalette } from "@fluentui/react";
 import { ContextualMenuItemType } from "@fluentui/react/lib/ContextualMenu";
+import { TeachingBubble } from "@fluentui/react/lib/TeachingBubble";
+import { useBoolean, useId } from "@fluentui/react-hooks";
 
 const styleBlue = {
   root: {
@@ -43,17 +45,6 @@ export const openOptionsPage = () => {
   }
 };
 
-export const clearData = () => {
-  chrome.runtime.sendMessage(
-    {
-      method: "clear",
-    },
-    function (response) {
-      console.log("data cleared");
-    }
-  );
-};
-
 const _overflowItems = [
   {
     key: "history",
@@ -62,30 +53,27 @@ const _overflowItems = [
     iconProps: { iconName: "OpenInNewTab" },
   },
   {
-    key: "clear",
-    text: "Clear Graph call history",
-    onClick: () => clearData(),
-    iconProps: { iconName: "Delete" },
-  },
-  {
     key: "divider1",
     itemType: ContextualMenuItemType.Divider,
   },
   {
-    key: "settings",
-    text: "Settings",
-    onClick: () => openOptionsPage(),
-    iconProps: { iconName: "Settings" },
+    key: "feedback",
+    text: "Feedback",
+    onClick: () =>
+      window.open("https://github.com/dhruvchand/SaveAsScriptHackathon/issues"),
+    iconProps: { iconName: "Feedback" },
   },
 ];
 
 export const CommandMenu = () => {
   return (
-    <CommandBar
-      overflowItems={_overflowItems}
-      overflowButtonProps={overflowProps}
-      ariaLabel="Clear state and open settings window commands"
-      styles={styleBlue}
-    />
+    <div>
+      <CommandBar
+        overflowItems={_overflowItems}
+        overflowButtonProps={overflowProps}
+        ariaLabel="Clear state and open settings window commands"
+        styles={styleBlue}
+      />
+    </div>
   );
 };
