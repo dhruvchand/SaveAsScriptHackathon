@@ -79,8 +79,12 @@ class DevTools extends React.Component {
     element.click();
   }
 
-  async addRequestToStack(request) {
-    const codeView = await getCodeView(this.state.snippetLanguage, request);
+  async addRequestToStack(request, version) {
+    const codeView = await getCodeView(
+      this.state.snippetLanguage,
+      request,
+      version
+    );
     if (codeView) {
       this.setState({ stack: [...this.state.stack, codeView] });
     }
@@ -91,7 +95,7 @@ class DevTools extends React.Component {
     let requests = JSON.parse(requestBody)?.requests;
     let calls = await Promise.all(
       requests.map(async (request) => {
-        await this.addRequestToStack(request);
+        await this.addRequestToStack(request, version);
       })
     );
   }

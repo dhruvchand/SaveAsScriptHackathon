@@ -9,7 +9,12 @@ const getPowershellCmd = async function (snippetLanguage, method, url, body) {
 
   console.log("Get code snippet from DevX:", url, method);
   const bodyText = body ?? ""; //Cast undefined and null to string
-  const path = url.split("/graph.microsoft.com")[1];
+  let path = url;
+  if (url.includes("https://graph.microsoft.com")) {
+    //Urls inside batch don't include host info.
+    path = url.split("/graph.microsoft.com")[1];
+  }
+
   const payload = `${method} ${path} HTTP/1.1\r\nHost: graph.microsoft.com\r\nContent-Type: application/json\r\n\r\n${bodyText}`;
   console.log("Payload:", payload);
 
@@ -58,7 +63,7 @@ const getRequestBody = function (request) {
   return requestBody;
 };
 
-const getCodeView = async function (snippetLanguage, request) {
+const getCodeView = async function (snippetLanguage, request, version) {
   if (["OPTIONS"].includes(request.method)) {
     return null;
   }
@@ -67,7 +72,7 @@ const getCodeView = async function (snippetLanguage, request) {
   const code = await getPowershellCmd(
     snippetLanguage,
     request.method,
-    request.url,
+    version + request.url,
     requestBody
   );
   const codeView = {
