@@ -1,57 +1,50 @@
 [
   {
+    "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/Overview",
+    "Markdown": "Microsoft_AAD_IAM-ActiveDirectoryMenuBlade-Overview.md"
+  },
+  {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps",
-    "Markdown": "applications.md",
-    "MarkdownContent": null
+    "Markdown": "applications.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/SignIns",
-    "Markdown": "signin-logs.md",
-    "MarkdownContent": null
+    "Markdown": "signin-logs.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/GroupMemberships/groupId/[ObjectId]",
-    "Markdown": "group-memberships.md",
-    "MarkdownContent": null
+    "Markdown": "group-memberships.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/Members/groupId/[ObjectId]",
-    "Markdown": "group-members.md",
-    "MarkdownContent": null
+    "Markdown": "group-members.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupDetailsMenuBlade/Owners/groupId/[ObjectId]",
-    "Markdown": "group-owners.md",
-    "MarkdownContent": null
+    "Markdown": "group-owners.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/GroupsManagementMenuBlade/AllGroups",
-    "Markdown": "groups.md",
-    "MarkdownContent": null
+    "Markdown": "groups.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/Owners/objectId/[ObjectId]/appId/[ObjectId]",
-    "Markdown": "service-principal-owners.md",
-    "MarkdownContent": null
+    "Markdown": "service-principal-owners.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/AppAppsPreview/menuId/",
-    "Markdown": "service-principals.md",
-    "MarkdownContent": null
+    "Markdown": "service-principals.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/UserDetailsMenuBlade/Profile/userId/[ObjectId]",
-    "Markdown": "user-details.md",
-    "MarkdownContent": null
+    "Markdown": "user-details.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_IAM/UsersManagementMenuBlade/MsGraphUsers",
-    "Markdown": "users.md",
-    "MarkdownContent": "# Users\r\n\r\n- List users\r\n  - Graph API: [GET /users](https://docs.microsoft.com/graph/api/user-list?view=graph-rest-1.0\u0026tabs=http)\r\n  - PowerShell: [Get-MgUser](https://docs.microsoft.com/powershell/module/microsoft.graph.users/get-mguser?view=graph-powershell-1.0)\r\n\r\n- Add user\r\n  - Graph API: [POST /users](https://docs.microsoft.com/graph/api/user-post-users?view=graph-rest-1.0\u0026tabs=http)\r\n  - PowerShell: [New-MgUser](https://docs.microsoft.com/powershell/module/microsoft.graph.users/new-mguser?view=graph-powershell-1.0)\r\n"
+    "Markdown": "users.md"
   },
   {
     "PortalUri": "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Owners/appId/[ObjectId]/isMSAApp/",
-    "Markdown": "application-owners.md",
-    "MarkdownContent": null
+    "Markdown": "application-owners.md"
   }
 ]

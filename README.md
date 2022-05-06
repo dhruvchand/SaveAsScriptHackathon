@@ -2,6 +2,11 @@
 
 This is a Chromium (Edge and Chrome) extension, and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Cloning on Windows
+To avoid issues with prettier formatting for line feeds turn off auto crlf before cloning.
+`git config --global core.autocrlf false` to disable git
+On VSCode change end of line sequence from CRLF to LF (bottom right on status bar)
+
 ## Installation
 ### On Windows
 `winget install OpenJS.NodeJS.LTS` to install nodejs and npm
