@@ -1,3 +1,5 @@
+# Users
+
 - List users
   - Graph API: [GET /users](https://docs.microsoft.com/graph/api/user-list?view=graph-rest-1.0&tabs=http)
   - PowerShell: [Get-MgUser](https://docs.microsoft.com/powershell/module/microsoft.graph.users/get-mguser?view=graph-powershell-1.0)

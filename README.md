@@ -3,6 +3,10 @@
 This is a Chromium (Edge and Chrome) extension, and was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Installation
+### On Windows
+`winget install OpenJS.NodeJS.LTS` to install nodejs and npm
+
+### On other OS
 `npm install` to install dependencies
 `npm start` to compile and debug
 To load the extension, go to chrome://extensions or edge://extensions, turn on developer mode, click on "load unpacked", and navigate to the ./dev folder.
