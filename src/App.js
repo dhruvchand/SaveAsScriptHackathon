@@ -1,6 +1,8 @@
 import "./App.css";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { PrimaryButton, DefaultPalette, getTheme } from "@fluentui/react";
 import { FontSizes } from "@fluentui/theme";
 import { AppHeader } from "./components/AppHeader";
@@ -131,6 +133,11 @@ class App extends React.Component {
     await fetch(docPath)
       .then((response) => response.text())
       .then((text) => {
+        if (text.startsWith("---")) {
+          //Remove metadata
+          console.log("Removing metadata");
+          text = text.split("---")[2];
+        }
         this.setState({ doc: text });
       });
   };
@@ -148,7 +155,28 @@ class App extends React.Component {
             }}
           >
             <h2>Graph API commonly used in this blade</h2>
-            <ReactMarkdown children={this.state.doc} />
+            <ReactMarkdown
+              children={this.state.doc}
+              components={{
+                code({ node, inline, className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || "");
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      children={String(children).replace(/\n$/, "")}
+                      style={atomOneDark}
+                      language={match[1]}
+                      PreTag="div"
+                      wrapLongLines={true}
+                      {...props}
+                    />
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                },
+              }}
+            />
           </div>
           <div
             style={{
