@@ -156,6 +156,7 @@ class App extends React.Component {
           >
             <h2>Graph API commonly used in this blade</h2>
             <ReactMarkdown
+              linkTarget={"_blank"}
               children={this.state.doc}
               components={{
                 code({ node, inline, className, children, ...props }) {
