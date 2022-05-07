@@ -3,6 +3,9 @@ portalUri: "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMen
 ---
 
 # Azure Active Directory Overview
+## Organization
+* [GET /organization](https://docs.microsoft.com/graph/api/organization-get)
+* [Get-MgOrganization](https://docs.microsoft.com/powershell/module/microsoft.graph.identity.directorymanagement/get-mgorganization)
 
 ## Secure Score
 * [GET /security/secureScoreControlProfiles]()
