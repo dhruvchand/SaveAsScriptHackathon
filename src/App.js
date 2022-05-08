@@ -38,6 +38,8 @@ class App extends React.Component {
     // Add listener when component mounts
     this.timerID = setInterval(() => this.getMetrics(), 500);
     this.fetchRelevantDocs();
+    // Add listener when component mounts
+    this.addListener();
   }
 
   componentWillUnmount() {
@@ -74,6 +76,18 @@ class App extends React.Component {
       recentGraphUri: recentGraphUri,
     });
   };
+
+  addListener() {
+    window.chrome.webview.addEventListener("message", (event) => {
+      console.log("Got message from host!");
+      console.log(event.data);
+      const msg = JSON.parse(event.data);
+      if (msg.eventName === "PreviewMarkdown") {
+        console.log("Showing markdown.");
+        this.showMarkdown(msg.markdown);
+      }
+    });
+  }
 
   toggleStart = () => {
     this.setState({ isActive: !this.state.isActive });
@@ -133,13 +147,17 @@ class App extends React.Component {
     await fetch(docPath)
       .then((response) => response.text())
       .then((text) => {
-        if (text.startsWith("---")) {
-          //Remove metadata
-          console.log("Removing metadata");
-          text = text.split("---")[2];
-        }
-        this.setState({ doc: text });
+        this.showMarkdown(text);
       });
+  };
+
+  showMarkdown = async (markdownContent) => {
+    if (markdownContent.startsWith("---")) {
+      //Remove metadata
+      console.log("Removing metadata");
+      markdownContent = markdownContent.split("---")[2];
+    }
+    this.setState({ doc: markdownContent });
   };
 
   render() {

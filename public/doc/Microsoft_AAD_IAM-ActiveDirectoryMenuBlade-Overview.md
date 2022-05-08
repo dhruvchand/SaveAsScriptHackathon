@@ -4,10 +4,12 @@ portalUri: "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMen
 # Azure Active Directory Overview
 
 ## Organization
+
 * [GET /organization](https://docs.microsoft.com/graph/api/organization-get)
 * [Get-MgOrganization](https://docs.microsoft.com/powershell/module/microsoft.graph.identity.directorymanagement/get-mgorganization)
 
 ## Count directory objects
+
 * [GET /groups/$count](https://docs.microsoft.com/en-au/graph/api/group-list?view=graph-rest-beta&tabs=http)
 * [Get-MgGroup](https://docs.microsoft.com/en-au/powershell/module/microsoft.graph.groups/get-mggroup?view=graph-powershell-beta)
 * [GET /users/$count](https://docs.microsoft.com/en-au/graph/api/user-list?view=graph-rest-beta&tabs=http)
@@ -27,6 +29,7 @@ Write-Host "Users:$userCount Groups:$groupCount Applications:$applicationCount D
 ```
 
 ## Secure Score
+
 * [GET /security/secureScores?$top=1&$select=controlScores]()
 * [Get-MgSecuritySecureScore]()
 * [GET /security/secureScoreControlProfiles](https://docs.microsoft.com/graph/api/security-list-securescorecontrolprofiles)
@@ -39,12 +42,15 @@ Get-MgSecuritySecureScoreControlProfile -Filter "controlCategory eq 'Identity'" 
 ```
 
 ## Roles
+
 * [GET /roleManagement/directory/transitiveRoleAssignments?$filter=principalId eq '{principalId}'](https://docs.microsoft.com/en-us/graph/api/rbacapplication-list-transitiveroleassignments?view=graph-rest-beta&tabs=http)
 * [Get-MgRoleManagementDirectoryTransitiveRoleAssignment](https://docs.microsoft.com/en-au/powershell/module/microsoft.graph.devicemanagement.enrolment/get-mgrolemanagementdirectorytransitiveroleassignment?view=graph-powershell-beta)
 
 ## Recommendations
+
 * [GET /directory/recommendations]()
 * [Get-MgDirectoryRecommendation](https://docs.microsoft.com/en-au/powershell/module/microsoft.graph.identity.directorymanagement/get-mgdirectoryrecommendation?view=graph-powershell-beta)
+
 ```powershell
 Import-Module Microsoft.Graph.Identity.DirectoryManagement
 Get-MgDirectoryRecommendation -Top 50 

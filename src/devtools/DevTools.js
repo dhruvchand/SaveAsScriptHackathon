@@ -38,6 +38,7 @@ class DevTools extends React.Component {
   componentDidMount() {
     // Add listener when component mounts
     this.addListener();
+    this.addListenerGraph();
   }
 
   clearStack = () => {
@@ -79,6 +80,18 @@ class DevTools extends React.Component {
     element.click();
   }
 
+  addListenerGraph() {
+    window.chrome.webview.addEventListener("message", (event) => {
+      console.log("Got message from host!");
+      console.log(event.data);
+      const msg = JSON.parse(event.data);
+      if (msg.eventName === "GraphCall") {
+        console.log("Showing graph call.");
+        this.showRequest(msg);
+      }
+    });
+  }
+
   async addRequestToStack(request, version) {
     const codeView = await getCodeView(
       this.state.snippetLanguage,
@@ -101,6 +114,9 @@ class DevTools extends React.Component {
   }
 
   addListener() {
+    if (!chrome.devtools) {
+      return;
+    }
     chrome.devtools.network.onRequestFinished.addListener(async (request) => {
       try {
         if (
@@ -111,13 +127,7 @@ class DevTools extends React.Component {
           request = request.request;
 
           try {
-            let requestBody = getRequestBody(request);
-
-            if (request.url.includes("/$batch") && requestBody) {
-              await this.getBatchRequests(request, requestBody);
-            } else {
-              await this.addRequestToStack(request);
-            }
+            this.showRequest(request);
           } catch (error) {
             console.error(error);
           }
@@ -126,6 +136,15 @@ class DevTools extends React.Component {
         console.error(error);
       }
     });
+  }
+
+  async showRequest(request) {
+    let requestBody = getRequestBody(request);
+    if (request.url.includes("/$batch") && requestBody) {
+      await this.getBatchRequests(request, requestBody);
+    } else {
+      await this.addRequestToStack(request);
+    }
   }
 
   onLanguageChange = (e, option) => {
