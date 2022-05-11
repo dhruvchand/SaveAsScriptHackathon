@@ -81,6 +81,9 @@ class DevTools extends React.Component {
   }
 
   addListenerGraph() {
+    if (!window.chrome.webview) {
+      return;
+    }
     window.chrome.webview.addEventListener("message", (event) => {
       console.log("Got message from host!");
       console.log(event.data);

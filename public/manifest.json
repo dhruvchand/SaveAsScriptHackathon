@@ -28,7 +28,7 @@
   },
   "options_page": "options.html",
   "devtools_page": "dev.html",
-  "permissions": ["webRequest", "activeTab", "storage", "tabs"],
+  "permissions": ["storage"],
   "content_security_policy": {
     "script-src": "self",
     "object-src": "self"

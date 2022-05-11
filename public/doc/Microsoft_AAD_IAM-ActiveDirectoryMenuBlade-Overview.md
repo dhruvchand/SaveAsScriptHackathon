@@ -16,7 +16,7 @@ portalUri: "https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMen
 * [Get-MgUser](https://docs.microsoft.com/en-au/powershell/module/microsoft.graph.users/get-mguser?view=graph-powershell-beta)
 * [GET /applications/$count](https://docs.microsoft.com/en-au/graph/api/application-list?view=graph-rest-beta&tabs=http)
 * [Get-MgApplication](https://docs.microsoft.com/en-au/powershell/module/microsoft.graph.applications/get-mgapplication?view=graph-powershell-beta)
-* [GET /devices/$count]
+* [GET /devices/$count](https://docs.microsoft.com/en-au/graph/api/device-list?view=graph-rest-beta&tabs=http)
 * [Get-MgDevice](https://docs.microsoft.com/en-au/powershell/module/microsoft.graph.identity.directorymanagement/get-mgdevice?view=graph-powershell-beta)
 
 ```powershell

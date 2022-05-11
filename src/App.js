@@ -78,6 +78,9 @@ class App extends React.Component {
   };
 
   addListener() {
+    if (!window.chrome.webview) {
+      return;
+    }
     window.chrome.webview.addEventListener("message", (event) => {
       console.log("Got message from host!");
       console.log(event.data);
